@@ -1,0 +1,169 @@
+<style>
+
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background-color: rgb(31, 30, 30);
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+.sHeader {
+  
+  background-color: rgb(54, 54, 54);
+  height: 50px;
+  width: 100%;
+  background-color: rgb(60, 61, 61);
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: large;
+  padding: 10px;
+}
+
+.sDailyAnimal {
+  background-color: rgb(48, 32, 32);
+  width: 90%;
+  max-width: 500px;
+  height: 1000px;
+  font-size: large;
+  background-color: #333;
+  border-color: rgb(59, 77, 58);
+  border-width: 1px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 20px auto;
+  transform: translateY(40%) translateX(50px);
+}
+.hints{
+  width: 90%;
+  height: 50px;
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 8px;
+  border-radius: 10px;
+  border-color: rgb(59, 77, 58);
+  border-width: 1px;
+  background-color: #333;
+  font-size: 16px;
+  transform: translateY(-800px) translateX(50px);
+  color: rgb(112, 102, 102);
+}
+.sInput {
+  width: 90%;
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 8px;
+  border-radius: 10px;
+  border-color: rgb(59, 77, 58);
+  border-width: 1px;
+  background-color: #4ca0a0;
+  font-size: 16px;
+  transform: translateY(40%) translateX(50px);
+  color: white;
+transform: translateY(150px) translateX(150px);
+}
+
+@media only screen and (min-width: 401px) and (max-width: 800px) {
+  .sDailyAnimal{
+    transform: translateY(40%) translateX(40px);
+  }
+  .hints,
+  .sInput {
+    width: 80%;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .hints,
+  .sDailyAnimal,
+  .sInput {
+    width: 90%;
+    max-width: none;
+     /* Reset the transform */
+  }
+
+  /* Style the datalist */
+#browsers {
+    /* Add your styling properties here */
+    background-color: rgb(214, 219, 220); /* Example background color */
+}
+
+/* Style the options */
+#browsers option {
+    /* Add your styling properties here */
+    color: black; /* Example text color */
+    background-color: white; /* Example background color */
+}
+
+.sRed{background-color: red;}
+
+}
+</style>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<main>
+  <div id="divHeader" class="sHeader">
+      <p> 
+          <span class="sTitreApp">
+              Zoodel<br/>
+          </span> 
+      </p>
+  </div>
+
+  <div id="divSearchBar" >
+      <input id="animalInput" list="browsers" class="sInput" placeholder="Enter an animal..." >
+      <datalist id="browsers" class="sInput">
+          <% data.forEach(function(animal) { %>
+              <option class="sInput"><%= animal %></option>
+          <% }); %>
+      </datalist>
+  </div>
+
+  <div id="divDailyAnimal" class="sDailyAnimal">
+      <span>Daily Animal: <%= randomAnimal %> <%= randomGuessingAnimal %></span>
+  </div>
+
+  <div id="hints" class="hints"></div>
+</main>
+
+<script>
+  // Add event listener to the input element to listen for key press event
+  document.getElementById('animalInput').addEventListener('keypress', function(event) {
+      handleKeyPress(event);
+  });
+
+  function handleKeyPress(event) {
+      if (event.key === 'Enter') {
+        
+          // Trigger the verification process when Enter key is pressed
+          verifyInput();
+      }
+  }
+
+  function verifyInput() {
+    
+      var userInput = document.getElementById('animalInput').value;
+      if (userInput == 'Hooded Seal') {
+          document.getElementById('hints').className = 'sRed';
+      }
+  }
+</script>
+
